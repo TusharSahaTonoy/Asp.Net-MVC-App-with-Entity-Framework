@@ -1,0 +1,66 @@
+﻿@model IEnumerable<_13_05_18_InventorySystem2.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Users List</h2>
+<ul class="nav navbar-nav menu__list pull-left">
+    <li class="menu__item">
+        <a href="@Url.Action("Create")" class="menu__link"><i class="fa fa-plus-square"></i>Create User</a>
+    </li>
+</ul>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            @if (User.IsInRole("admin"))
+            {
+                <th>Action</th>
+            }
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                @if (User.IsInRole("admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+                    </td>
+                }
+
+            </tr>
+        }
+
+    </table>

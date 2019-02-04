@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Inventory2DBModelStoreContainer" CdmEntityContainer="DBEntities">
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="Inventory2DBModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CellNo" ColumnName="CellNo" />
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="Inventory2DBModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Purchases">
+      <EntityTypeMapping TypeName="Inventory2DBModel.Purchase">
+        <MappingFragment StoreEntitySet="Purchase">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stocks">
+      <EntityTypeMapping TypeName="Inventory2DBModel.Stock">
+        <MappingFragment StoreEntitySet="Stock">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suppliers">
+      <EntityTypeMapping TypeName="Inventory2DBModel.Supplier">
+        <MappingFragment StoreEntitySet="Suppliers">
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+          <ScalarProperty Name="CellNo" ColumnName="CellNo" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="Inventory2DBModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="Inventory2DBModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CellNo" ColumnName="CellNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

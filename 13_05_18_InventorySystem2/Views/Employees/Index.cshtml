@@ -1,0 +1,76 @@
+﻿@model IEnumerable<_13_05_18_InventorySystem2.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CellNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+@foreach (var item in Model)
+{
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CellNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.EmployeeId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId })
+            </td>
+        </tr>
+    </tbody>
+}
+
+</table>

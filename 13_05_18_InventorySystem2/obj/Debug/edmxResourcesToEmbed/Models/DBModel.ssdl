@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Inventory2DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="80" />
+    <Property Name="CellNo" Type="nvarchar" MaxLength="15" />
+    <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="CellNo" Type="nvarchar" MaxLength="15" />
+    <Property Name="Address" Type="nvarchar" MaxLength="80" />
+    <Property Name="Salary" Type="money" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="IsActive" Type="nvarchar" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderDate" Type="date" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="CustomerId" Type="int" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="UnitPrice" Type="money" />
+    <Property Name="TotalPrice" Type="money" />
+    <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Purchase">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PurchaseDate" Type="date" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="UnitPrice" Type="money" />
+    <Property Name="Total" Type="money" />
+    <Property Name="SupplierId" Type="int" />
+    <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Stock">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="UnitPrice" Type="money" />
+    <Property Name="ImageUrl" Type="nvarchar" MaxLength="100" />
+    <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="nvarchar" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="Suppliers">
+    <Key>
+      <PropertyRef Name="SupplierId" />
+    </Key>
+    <Property Name="SupplierId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplierName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CellNo" Type="nvarchar" MaxLength="15" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" />
+    <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="nvarchar" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="nvarchar" MaxLength="5" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK__Employee__UserId__25869641">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__Customer__2B3F6F97">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__ProductI__2A4B4B5E">
+    <End Role="Stock" Type="Self.Stock" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stock">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Purchase__Produc__145C0A3F">
+    <End Role="Stock" Type="Self.Stock" Multiplicity="0..1" />
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stock">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Purchase">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Purchase__Suppli__15502E78">
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="SupplierId" />
+      </Principal>
+      <Dependent Role="Purchase">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Inventory2DBModelStoreContainer">
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Employee__UserId__25869641" Association="Self.FK__Employee__UserId__25869641">
+      <End Role="User" EntitySet="User" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__Customer__2B3F6F97" Association="Self.FK__Orders__Customer__2B3F6F97">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__ProductI__2A4B4B5E" Association="Self.FK__Orders__ProductI__2A4B4B5E">
+      <End Role="Stock" EntitySet="Stock" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Purchase__Produc__145C0A3F" Association="Self.FK__Purchase__Produc__145C0A3F">
+      <End Role="Stock" EntitySet="Stock" />
+      <End Role="Purchase" EntitySet="Purchase" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Purchase__Suppli__15502E78" Association="Self.FK__Purchase__Suppli__15502E78">
+      <End Role="Suppliers" EntitySet="Suppliers" />
+      <End Role="Purchase" EntitySet="Purchase" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

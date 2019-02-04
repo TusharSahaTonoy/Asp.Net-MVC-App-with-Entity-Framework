@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Inventory2DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="CellNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Customer__2B3F6F97" FromRole="Customers" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDate" Type="DateTime" Precision="0" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="CustomerId" Type="Int32" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__Orders__Customer__2B3F6F97" FromRole="Orders" ToRole="Customers" />
+    <NavigationProperty Name="Stock" Relationship="Self.FK__Orders__ProductI__2A4B4B5E" FromRole="Orders" ToRole="Stock" />
+  </EntityType>
+  <EntityType Name="Purchase">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PurchaseDate" Type="DateTime" Precision="0" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="SupplierId" Type="Int32" />
+    <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Stock" Relationship="Self.FK__Purchase__Produc__145C0A3F" FromRole="Purchase" ToRole="Stock" />
+    <NavigationProperty Name="Supplier" Relationship="Self.FK__Purchase__Suppli__15502E78" FromRole="Purchase" ToRole="Suppliers" />
+  </EntityType>
+  <EntityType Name="Stock">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ImageUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ProductI__2A4B4B5E" FromRole="Stock" ToRole="Orders" />
+    <NavigationProperty Name="Purchases" Relationship="Self.FK__Purchase__Produc__145C0A3F" FromRole="Stock" ToRole="Purchase" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="SupplierId" />
+    </Key>
+    <Property Name="SupplierId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SupplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CellNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Purchases" Relationship="Self.FK__Purchase__Suppli__15502E78" FromRole="Suppliers" ToRole="Purchase" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Employees" Relationship="Inventory2DBModel.FK__Employee__UserId__25869641" FromRole="User" ToRole="Employee" />
+  </EntityType>
+  <Association Name="FK__Orders__Customer__2B3F6F97">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__ProductI__2A4B4B5E">
+    <End Role="Stock" Type="Self.Stock" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stock">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Purchase__Produc__145C0A3F">
+    <End Role="Stock" Type="Self.Stock" Multiplicity="0..1" />
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stock">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Purchase">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Purchase__Suppli__15502E78">
+    <End Role="Suppliers" Type="Self.Supplier" Multiplicity="0..1" />
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="SupplierId" />
+      </Principal>
+      <Dependent Role="Purchase">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Purchases" EntityType="Self.Purchase" />
+    <EntitySet Name="Stocks" EntityType="Self.Stock" />
+    <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK__Orders__Customer__2B3F6F97" Association="Self.FK__Orders__Customer__2B3F6F97">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__ProductI__2A4B4B5E" Association="Self.FK__Orders__ProductI__2A4B4B5E">
+      <End Role="Stock" EntitySet="Stocks" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Purchase__Produc__145C0A3F" Association="Self.FK__Purchase__Produc__145C0A3F">
+      <End Role="Stock" EntitySet="Stocks" />
+      <End Role="Purchase" EntitySet="Purchases" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Purchase__Suppli__15502E78" Association="Self.FK__Purchase__Suppli__15502E78">
+      <End Role="Suppliers" EntitySet="Suppliers" />
+      <End Role="Purchase" EntitySet="Purchases" />
+    </AssociationSet>
+    <EntitySet Name="Employees" EntityType="Inventory2DBModel.Employee" />
+    <AssociationSet Name="FK__Employee__UserId__25869641" Association="Inventory2DBModel.FK__Employee__UserId__25869641">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="ComplexType1" />
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CellNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="IsActive" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="Inventory2DBModel.FK__Employee__UserId__25869641" FromRole="Employee" ToRole="User" />
+  </EntityType>
+  <Association Name="FK__Employee__UserId__25869641">
+    <End Type="Inventory2DBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="Inventory2DBModel.Employee" Role="Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,87 @@
+﻿@model _13_05_18_InventorySystem2.Models.User
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-body ">
+                <h2><i class="fa fa-user"></i>Add User</h2>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        @if (User.IsInRole("admin"))
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.RoleName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <select id="RoleName" name="RoleName">
+                                        <option value="admin">Admin</option>
+                                        <option value="manager">Manager</option>
+                                        <option value="staff">Staff</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <input type="hidden" id="RoleName" name="RoleName" value="staff" />
+                        }
+
+                        <input type="hidden" id="AddedBy" name="AddedBy" value="@User.Identity.Name" />
+
+                        <input type="hidden" id="IsActive" name="IsActive" value="yes" />
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                                <a href="@Url.Action("Index","Users")" class="btn btn-danger pull-right">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                
+                
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <script>
+        $(window).load(function () {
+            $('#myModal').modal('show');
+        });
+    </script>
